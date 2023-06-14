@@ -37,7 +37,8 @@ if __name__ == '__main__':
     db.init_app(app)
 
     if app.config['DEBUG']:
-        with app.app_context():
+        @app.before_request
+        def create_tables():
             db.create_all()
 
     app.run(port=5000)
